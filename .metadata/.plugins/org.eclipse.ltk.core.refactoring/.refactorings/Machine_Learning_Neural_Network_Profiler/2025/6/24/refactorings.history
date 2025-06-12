@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Machine_Learning_Neural_Network_Profiler/Scripts&apos; to &apos;scripts&apos;" description="Rename resource &apos;Scripts&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Scripts" name="scripts" stamp="1749694183577" updateReferences="true"/>
+</session>

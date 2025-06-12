@@ -1,0 +1,18 @@
+{
+    "model_key": "TEST_MODEL",
+    "datatype": "int8x8",
+    "cycles_per_op": [
+        [
+            "FULLY_CONNECTED",
+            40864
+        ],
+        [
+            "FULLY_CONNECTED",
+            3040
+        ],
+        [
+            "FULLY_CONNECTED",
+            1974
+        ]
+    ]
+}

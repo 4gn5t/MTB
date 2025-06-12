@@ -1,0 +1,3 @@
+Memory to be allocated for buffer               :     2.66 kB
+Memory size for NN model weights & biases       :    14.97 kB
+Accuracy for 8-bit fixed-point implementation : 100.00

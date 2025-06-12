@@ -1,0 +1,51 @@
+04:46:41 **** Incremental Build of configuration Debug for project Machine_Learning_Neural_Network_Profiler ****
+"C:\\Users\\evilg\\ModusToolbox\\tools_3.5\\modus-shell\\bin\\make" CY_MAKE_IDE=eclipse CY_IDE_TOOLS_DIR=C:/Users/evilg/ModusToolbox/tools_3.5 CY_IDE_BT_TOOLS_DIR= -j12 build_proj 
+Tools Directory: C:/Users/evilg/ModusToolbox/tools_3.5
+Searching installed tools in progress...
+Searching installed tools complete
+INFO: Multiple tools versions were found in "/cygdrive/c/Users/evilg/ModusToolbox/tools_3.4 /cygdrive/c/Users/evilg/ModusToolbox/tools_3.5 C:/Users/evilg/ModusToolbox/tools_3.4 C:/Users/evilg/ModusToolbox/tools_3.5". This build is currently using "C:/Users/evilg/ModusToolbox/tools_3.5". Check that this is the correct version that should be used in this build. To stop seeing this message, set the CY_TOOLS_PATHS environment variable to the location of the tools directory. This can be done either as an environment variable or set in the application Makefile.
+NOTE: Using 'C:/Users/evilg/ModusToolbox/tools_3.5/ninja/ninja.exe' from PATH.
+Generating mtbninja data files...
+Generating mtbninja data complete...
+Toolchain validation: PASS
+Initializing build: mtb-example-ml-profiler Debug APP_CY8CKIT-062-BLE GCC_ARM
+
+Prebuild operations complete
+# 0: Loading the application in directory 'W:/MTB/Machine_Learning_Neural_Network_Profiler'
+# 0: Loading the ModusToolbox Technology Packs and Early Access Packs
+# 0: Loading the tools information
+[1/6] Building object file W:/MTB/Machine_Learning_Neural_Network_Profiler/build/Debug/local/mtb_ml_gen/mtb_ml_regression_data/TEST_MODEL_tflm_y_data_int8x8.o
+[2/6] Building object file W:/MTB/Machine_Learning_Neural_Network_Profiler/build/Debug/local/mtb_ml_gen/mtb_ml_models/TEST_MODEL_tflm_model_int8x8.o
+[3/6] Building object file W:/MTB/Machine_Learning_Neural_Network_Profiler/build/Debug/local/mtb_ml_gen/mtb_ml_regression_data/TEST_MODEL_tflm_x_data_int8x8.o
+[4/6] Building object file W:/MTB/Machine_Learning_Neural_Network_Profiler/build/Debug/local/source/main.o
+[5/6] Building object file W:/MTB/Machine_Learning_Neural_Network_Profiler/build/Debug/local/source/ml_local_regression.o
+[6/6] Linking, creating elf file build/APP_CY8CKIT-062-BLE/Debug/mtb-example-ml-profiler.elf
+C:/Users/evilg/Infineon/Tools/mtb-gcc-arm-eabi/11.3.1/gcc/bin/arm-none-eabi-objcopy -O ihex W:/MTB/Machine_Learning_Neural_Network_Profiler/build/APP_CY8CKIT-062-BLE/Debug/mtb-example-ml-profiler.elf W:/MTB/Machine_Learning_Neural_Network_Profiler/build/APP_CY8CKIT-062-BLE/Debug/mtb-example-ml-profiler.hex
+==============================================================================
+= Build complete =
+==============================================================================
+
+Calculating memory consumption: CY8C6347BZI-BLD53 GCC_ARM
+
+
+   ---------------------------------------------------- 
+  | Section Name         |  Address      |  Size       | 
+   ---------------------------------------------------- 
+  | .cy_m0p_image        |  0x10000000   |  112144     | 
+  | .text                |  0x10020000   |  365144     | 
+  | .ARM.exidx           |  0x10079258   |  8          | 
+  | .copy.table          |  0x10079260   |  24         | 
+  | .zero.table          |  0x10079278   |  8          | 
+  | .data                |  0x0800328c   |  17028      | 
+  | .cy_sharedmem        |  0x08007510   |  12         | 
+  | .noinit              |  0x08007520   |  236        | 
+  | .bss                 |  0x0800760c   |  6540       | 
+  | .heap                |  0x08008f98   |  252008     | 
+   ---------------------------------------------------- 
+
+  Total Internal Flash (Available)          1048576    
+  Total Internal Flash (Utilized)           513296     
+
+
+04:46:45 Build Finished. 0 errors, 0 warnings. (took 3s.984ms)
+

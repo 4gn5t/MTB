@@ -1,0 +1,47 @@
+{
+    "data": {
+        "calibration_data": {
+            "base_folder": "W:/MTB/Machine_Learning_Neural_Network_Profiler",
+            "col_idx": [
+                1,
+                784
+            ],
+            "data_file": "W:/MTB/Machine_Learning_Neural_Network_Profiler/test_data/test_data.csv",
+            "data_mode": "normal",
+            "dataset_structure": "ml",
+            "target_idx": [
+                0
+            ]
+        },
+        "validation_data": {
+            "base_folder": "W:/MTB/Machine_Learning_Neural_Network_Profiler",
+            "col_idx": [
+                1,
+                784
+            ],
+            "data_file": "W:/MTB/Machine_Learning_Neural_Network_Profiler/test_data/test_data.csv",
+            "data_mode": "normal",
+            "dataset_structure": "ml",
+            "target_idx": [
+                0
+            ]
+        }
+    },
+    "model": {
+        "inference_engine": "tflm",
+        "key_model": "TEST_MODEL",
+        "load_model": "W:/MTB/Machine_Learning_Neural_Network_Profiler/pretrained_models/small_mlp_mnist.h5",
+        "optimization_settings": {
+            "headroom_weights": 6,
+            "quantization": [
+                "int8x8"
+            ],
+            "sparsity": false,
+            "target": [
+                "PSoC6"
+            ]
+        }
+    },
+    "run_mode": "deploy",
+    "version": "2.0.0"
+}
