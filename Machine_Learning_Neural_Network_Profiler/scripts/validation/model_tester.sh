@@ -5,7 +5,12 @@ source "$(dirname "${BASH_SOURCE[0]}")/ml_configurator_validator.sh"
 source "$(dirname "${BASH_SOURCE[0]}")/summary_generator.sh"
 
 test_models() {
+    local enable_target_validation="${1:-false}"
+    local quantization_type="${2:-float32}"
+    
     print_status "INFO" "Starting model testing..."
+    print_status "INFO" "Target validation: $enable_target_validation"
+    print_status "INFO" "Quantization type: $quantization_type"
     
     local models_dir="../pretrained_models"
     local results_dir="test_results"
@@ -35,5 +40,5 @@ test_models() {
 
     print_status "INFO" "Found and tested $model_count models from pretrained_models directory"
 
-    validate_models_with_ml_configurator
+    validate_models_with_ml_configurator "$enable_target_validation" "$quantization_type"
 }

@@ -8,11 +8,10 @@ generate_basic_mtbml_config() {
     local config_file="$2"
     local model_name="$3"
     local test_data_path="$4"
-    local quantization_type="${5:-int8x8}"
+    local quantization_type="$5"
     
-    print_status "INFO" "Generating basic .mtbml config for $model_name with $quantization_type quantization and target validation"
-    
-    local model_rel_path="../../../pretrained_models/$(basename "$model_file")"
+    local model_basename=$(basename "$model_file")
+    local model_rel_path="../../../pretrained_models/$model_basename"
     local test_data_rel_path="../../../test_data/test_data.csv"
     
     local feat_count=784
@@ -37,27 +36,51 @@ generate_basic_mtbml_config() {
     local int16x16="false"
     local int16x8="false"
     local int8x8="false"
-    local tflm_quantization="INT8X8"
+    local tflm_quantization="FLOAT"
+    local nn_type=""
+    
+    if [[ -z "$quantization_type" ]]; then
+        quantization_type="float32"
+    fi
     
     case "$quantization_type" in
         "float32")
             float32="true"
-            tflm_quantization="FLOAT32"
+            tflm_quantization="FLOAT"
+            nn_type="float"
             ;;
         "int16x16")
             int16x16="true"
             tflm_quantization="INT16X16"
+            nn_type="int16x16"
             ;;
         "int16x8")
             int16x8="true"
             tflm_quantization="INT16X8"
+            nn_type="int16x8"
             ;;
         "int8x8")
             int8x8="true"
             tflm_quantization="INT8X8"
+            nn_type="int8x8"
+            ;;
+        *)
+            float32="true"
+            tflm_quantization="FLOAT"
+            nn_type="float"
+            quantization_type="float32"
             ;;
     esac
     
+    local makefile_info="$config_file.makefile_params"
+    cat > "$makefile_info" << EOF
+# Makefile parameters for ${model_name^^}_MODEL
+NN_TYPE=$nn_type
+NN_MODEL_NAME=${model_name^^}_MODEL
+NN_MODEL_FOLDER=mtb_ml_gen
+NN_INFERENCE_ENGINE=tflm
+EOF
+
     cat > "$config_file" << EOF
 {
     "app": "ML",
@@ -78,7 +101,7 @@ generate_basic_mtbml_config() {
     "name": "${model_name^^}_MODEL",
     "model": {
         "framework": "TFLITE",
-        "path": "$model_rel_path",  
+        "path": "$model_rel_path",
         "optimization_ifx": "SIZE",
         "optimization_tflm": false,
         "quantization": {
@@ -134,6 +157,8 @@ generate_basic_mtbml_config() {
     }
 }
 EOF
-    
-    print_status "SUCCESS" "Generated .mtbml config with $quantization_type quantization (target validation disabled by default): $config_file"
+        
+    print_status "SUCCESS" "Generated .mtbml config with $quantization_type quantization: $config_file"
+    print_status "INFO" "Makefile parameters saved to: $makefile_info"
+    print_status "INFO" "Target model file: $model_basename"
 }

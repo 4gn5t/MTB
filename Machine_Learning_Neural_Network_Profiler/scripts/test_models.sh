@@ -7,8 +7,9 @@ source "$(dirname "${BASH_SOURCE[0]}")/utils/dependencies.sh"
 source "$(dirname "${BASH_SOURCE[0]}")/validation/model_tester.sh"
 
 main() {
-    local enable_target_validation=true
-    local quantization_type="int8x8"
+    local enable_target_validation=false
+    local quantization_type="float32"
+    local force_regenerate=false
     
     if [[ "$1" == "--help" ]]; then
         print_status "INFO" "This script tests existing models from the ../pretrained_models directory."
@@ -20,7 +21,7 @@ main() {
          - models file path is set to ../../../pretrained_models (use all .h5 and .tflite files)
          - feature count is set to 784 (for MNIST models)
          - COM port is auto-detected if available
-         - .mtbml config files are generated with INT8x8 quantization and target validation enabled
+         - .mtbml config files are generated with float32 quantization and target validation enabled
          - test results are stored in the test_results directory
         "
 
@@ -28,10 +29,10 @@ main() {
             [--help] - list available options 
             [--force] - force re-testing of models (it will re-generate .mtbml config files)
             [--enable-target] - enable target device validation
-            [--quantization TYPE] - set quantization type (float32, int16x16, int16x8, int8x8) [default: int8x8]
+            [--quantization TYPE] - set quantization type (float32, int16x16, int8x8) [default: float32]
             [--clean] - clean up test results directory
 
-        print_status "INFO" "Example: $0 --force --enable-target APP_CY8CKIT-062-BLE --quantization int16x8"
+        print_status "INFO" "Example: $0 --force --enable-target --quantization int8x8"
         "
 
         exit 0
@@ -47,14 +48,10 @@ main() {
                 ;;
             --force)
                 print_status "INFO" "Forcing re-testing of models..."
-                enable_target_validation=true
+                force_regenerate=true
                 shift
                 ;;
             --enable-target)
-                if [[ "$2" == "$target_device" ]]; then
-                    print_status "ERROR" "Target device validation is already enabled for $target_device"
-                    exit 1
-                fi
                 print_status "INFO" "Enabling target device validation..."
                 enable_target_validation=true
                 shift

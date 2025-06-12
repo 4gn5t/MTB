@@ -6,7 +6,11 @@ source "$(dirname "${BASH_SOURCE[0]}")/../utils/mtbml_config.sh"
 
 
 validate_models_with_ml_configurator() {
+    local enable_target_validation="${1:-false}"
+    local quantization_type="${2:-float32}"
+    
     print_status "START" "Validating models with ml-configurator-cli..."
+    print_status "INFO" "Using quantization type: $quantization_type"
 
     local models_dir="../pretrained_models"
     local test_data_dir="../test_data"
@@ -25,7 +29,6 @@ validate_models_with_ml_configurator() {
         return 1
     fi
     
-    local enable_target_validation=false
     if [[ "$1" == "--enable-target" ]]; then
         enable_target_validation=true
         print_status "INFO" "Target validation enabled"
@@ -43,6 +46,12 @@ validate_models_with_ml_configurator() {
         if [[ -f "$model_file" ]]; then
             local model_basename=$(basename "$model_file")
             local model_name="${model_basename%.*}"
+
+            if [[ "$model_basename" == *_float32.tflite || "$model_basename" == *_int8x8.tflite || "$model_basename" == *_int16x16.tflite || "$model_basename" == *_int16x8.tflite ]]; then
+                print_status "WARNING" "Skipping $model_basename - TFLite files with quantization suffixes may cause QEMU issues"
+                print_status "INFO" "Use the base H5 model instead for conversion: ${model_basename/_float32.tflite/.h5}"
+                continue
+            fi
 
             echo ""
             print_status "START" "Processing model $model_name"
@@ -63,7 +72,7 @@ validate_models_with_ml_configurator() {
             else
                 print_status "INFO" "Config file not found for $model_name, generating basic config"
                 if [[ -f "$model_test_data" ]]; then
-                    generate_basic_mtbml_config "$model_file" "$config_file" "$model_name" "$model_test_data"
+                    generate_basic_mtbml_config "$model_file" "$config_file" "$model_name" "$model_test_data" "$quantization_type"
                 else
                     print_status "WARNING" "No test data found for $model_name (looked in $test_data_dir), skipping"
                     continue
