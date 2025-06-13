@@ -14,6 +14,26 @@ def create_directories():
         print(f"Created directory: {models_dir}")
     return models_dir
 
+def create_extra_large_model():
+    """Create an extra large neural network model for MNIST-like data"""
+    model = keras.Sequential([
+        layers.Dense(512, activation='relu', input_shape=(784,), name='dense_1'),
+        layers.Dropout(0.4, name='dropout_1'),
+        layers.Dense(256, activation='relu', name='dense_2'),
+        layers.Dropout(0.4, name='dropout_2'),
+        layers.Dense(128, activation='relu', name='dense_3'),
+        layers.Dropout(0.3, name='dropout_3'),
+        layers.Dense(64, activation='relu', name='dense_4'),
+        layers.Dense(10, activation='softmax', name='output')
+    ], name='mnist_extra_large_model')
+    
+    model.compile(
+        optimizer='adam',
+        loss='sparse_categorical_crossentropy',
+        metrics=['accuracy']
+    )
+    return model
+
 def create_small_model():
     """Create a small neural network model for MNIST-like data"""
     model = keras.Sequential([
@@ -156,7 +176,8 @@ def main():
     model_generators = {
         'small': create_small_model,
         'medium': create_medium_model,
-        'large': create_large_model
+        'large': create_large_model,
+        'extra_large': create_extra_large_model
     }
     
     generated_models = []
